@@ -37,6 +37,67 @@ struct MapView: UIViewRepresentable {
          /// Updates the `centerCoordinate` property in `ContentView`as the map moves around .
           parent.centerCoordinate = mapView.centerCoordinate
       }
+      
+      
+      func mapView(_ mapView: MKMapView,
+                   viewFor annotation: MKAnnotation)
+      -> MKAnnotationView? {
+         
+         // this is our unique identifier for view reuse
+         let identifier = "Placemark"
+         
+         // attempt to find a cell we can recycle
+         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+         
+// OLIVIER :
+//         guard let _annotationView = annotationView
+//         else {
+//            annotationView = MKPinAnnotationView(annotation: annotation,
+//                                                 reuseIdentifier: identifier)
+//            // allow this to show pop up information
+//            annotationView?.canShowCallout = true
+//            // attach an information button to the view
+//            annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+//            // whether it's a new view or a recycled one, send it back
+//            return annotationView
+//         }
+//
+//         _annotationView.annotation = annotation
+//
+//         return _annotationView
+
+// PAUL HUDSON :
+         if annotationView == nil {
+            // we didn't find one; make a new one
+            annotationView = MKPinAnnotationView(annotation: annotation,
+                                                 reuseIdentifier: identifier)
+            
+            // allow this to show pop up information
+            annotationView?.canShowCallout = true
+            
+            // attach an information button to the view
+            annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            
+         } else {
+            // we have a view to reuse, so give it the new annotation
+            annotationView?.annotation = annotation
+         }
+         
+         // whether it's a new view or a recycled one, send it back
+         return annotationView
+      }
+      
+      
+      func mapView(_ mapView: MKMapView,
+                   annotationView view: MKAnnotationView,
+                   calloutAccessoryControlTapped control: UIControl) {
+         
+         guard let _placemark = view.annotation as? MKPointAnnotation
+         else { return }
+
+         parent.selectedPlace = _placemark
+         parent.isShowingPlaceDetails = true
+      }
    }
                       
    
@@ -44,6 +105,8 @@ struct MapView: UIViewRepresentable {
    // MARK: - PROPERTY WRAPPERS
    
    @Binding var centerCoordinate: CLLocationCoordinate2D
+   @Binding var selectedPlace: MKPointAnnotation?
+   @Binding var isShowingPlaceDetails: Bool
    
    
    
@@ -123,6 +186,8 @@ struct MapView_Previews: PreviewProvider {
    static var previews: some View {
       
       MapView(centerCoordinate: .constant(MKPointAnnotation.example.coordinate),
+              selectedPlace: .constant(MKPointAnnotation.example),
+              isShowingPlaceDetails: .constant(false),
               annotations: [MKPointAnnotation.example])
    }
 }
