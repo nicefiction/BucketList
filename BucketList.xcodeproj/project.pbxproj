@@ -11,6 +11,7 @@
 		090DC4EB26C7BC5B009F5820 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090DC4EA26C7BC5B009F5820 /* ContentView.swift */; };
 		090DC4ED26C7BC5F009F5820 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 090DC4EC26C7BC5F009F5820 /* Assets.xcassets */; };
 		090DC4F026C7BC5F009F5820 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 090DC4EF26C7BC5F009F5820 /* Preview Assets.xcassets */; };
+		090DC50126C8060C009F5820 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090DC50026C8060C009F5820 /* MapView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,7 @@
 		090DC4EC26C7BC5F009F5820 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		090DC4EF26C7BC5F009F5820 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		090DC4F126C7BC5F009F5820 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		090DC50026C8060C009F5820 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,7 +55,8 @@
 			isa = PBXGroup;
 			children = (
 				090DC4E826C7BC5B009F5820 /* BucketListApp.swift */,
-				090DC4EA26C7BC5B009F5820 /* ContentView.swift */,
+				090DC4FA26C80278009F5820 /* ModelView */,
+				090DC4F826C8026D009F5820 /* View */,
 				090DC4EC26C7BC5F009F5820 /* Assets.xcassets */,
 				090DC4F126C7BC5F009F5820 /* Info.plist */,
 				090DC4EE26C7BC5F009F5820 /* Preview Content */,
@@ -67,6 +70,22 @@
 				090DC4EF26C7BC5F009F5820 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		090DC4F826C8026D009F5820 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				090DC4EA26C7BC5B009F5820 /* ContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		090DC4FA26C80278009F5820 /* ModelView */ = {
+			isa = PBXGroup;
+			children = (
+				090DC50026C8060C009F5820 /* MapView.swift */,
+			);
+			path = ModelView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,6 +158,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				090DC4EB26C7BC5B009F5820 /* ContentView.swift in Sources */,
+				090DC50126C8060C009F5820 /* MapView.swift in Sources */,
 				090DC4E926C7BC5B009F5820 /* BucketListApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
