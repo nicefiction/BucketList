@@ -37,7 +37,7 @@ struct ContentView: View {
             }
             .sheet(isPresented: $isShowingEditSheet) {
                if selectedPlace != nil {
-                  EditView(placeMark: selectedPlace!)
+                  EditView(placemark: selectedPlace!)
                }
             }
       }

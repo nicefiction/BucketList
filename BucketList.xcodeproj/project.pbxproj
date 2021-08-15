@@ -15,6 +15,7 @@
 		0956EDE026C903B8004D1344 /* MKPointAnnotation+ObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0956EDDF26C903B8004D1344 /* MKPointAnnotation+ObservableObject.swift */; };
 		0956EDE326C90520004D1344 /* MKPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0956EDE226C90520004D1344 /* MKPointAnnotation.swift */; };
 		0956EDE826C90589004D1344 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0956EDE726C90589004D1344 /* EditView.swift */; };
+		0956EDEB26C91804004D1344 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0956EDEA26C91804004D1344 /* Result.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		0956EDDF26C903B8004D1344 /* MKPointAnnotation+ObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKPointAnnotation+ObservableObject.swift"; sourceTree = "<group>"; };
 		0956EDE226C90520004D1344 /* MKPointAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MKPointAnnotation.swift; sourceTree = "<group>"; };
 		0956EDE726C90589004D1344 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
+		0956EDEA26C91804004D1344 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,8 +92,9 @@
 		090DC4FA26C80278009F5820 /* ModelView */ = {
 			isa = PBXGroup;
 			children = (
-				090DC50026C8060C009F5820 /* MapView.swift */,
 				0956EDE526C90569004D1344 /* Extensions */,
+				090DC50026C8060C009F5820 /* MapView.swift */,
+				0956EDEA26C91804004D1344 /* Result.swift */,
 			);
 			path = ModelView;
 			sourceTree = "<group>";
@@ -178,6 +181,7 @@
 				090DC50126C8060C009F5820 /* MapView.swift in Sources */,
 				0956EDE826C90589004D1344 /* EditView.swift in Sources */,
 				090DC4E926C7BC5B009F5820 /* BucketListApp.swift in Sources */,
+				0956EDEB26C91804004D1344 /* Result.swift in Sources */,
 				0956EDE326C90520004D1344 /* MKPointAnnotation.swift in Sources */,
 				0956EDE026C903B8004D1344 /* MKPointAnnotation+ObservableObject.swift in Sources */,
 			);
