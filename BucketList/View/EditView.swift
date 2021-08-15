@@ -83,7 +83,7 @@ struct EditView: View {
                  id: \.pageid) { (page: Page) in
             Text(page.title).font(.headline)
                + Text(": ")
-               + Text("Page description here.")
+               + Text(page.description)
                .italic()
          }
       }
@@ -113,11 +113,8 @@ struct EditView: View {
             if let _items = try? decoder.decode(Result.self,
                                                 from: _data) {
                // success – convert the array values to our pages array
-               print("The items are decoded successfully.")
-               self.pages = Array(_items.query.pages.values)
-               print("We have queried the pages of the items.")
+               self.pages = Array(_items.query.pages.values).sorted()
                self.loadingState = .loaded
-               print("The pages and items have been loaded.")
                return
             }
          }
@@ -127,6 +124,7 @@ struct EditView: View {
       }.resume()
    }
 }
+
 
 
 
