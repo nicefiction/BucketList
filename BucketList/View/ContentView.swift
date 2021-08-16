@@ -1,11 +1,13 @@
 // ContentView.swift
 // SOURCE:
 // https://www.hackingwithswift.com/books/ios-swiftui/making-someone-elses-class-conform-to-codable
+// https://www.hackingwithswift.com/books/ios-swiftui/locking-our-ui-behind-face-id
 
 // MARK: - LIBRARIES -
 
 import SwiftUI
 import MapKit
+import LocalAuthentication
 
 
 
@@ -19,6 +21,7 @@ struct ContentView: View {
    @State private var selectedPlace: MKPointAnnotation?
    @State private var isShowingPlaceDetails: Bool = false
    @State private var isShowingEditSheet: Bool = false
+   @State private var isUnlocked: Bool = false
    
    
    
@@ -27,25 +30,36 @@ struct ContentView: View {
    var body: some View {
       
       ZStack {
-         map
-         mapFocusPoint
-         addPinLocation
-            .alert(isPresented: $isShowingPlaceDetails) {
-               Alert(title: Text(selectedPlace?.title ?? "N/A"),
-                     message: Text(selectedPlace?.subtitle ?? "Missing place information."),
-                     primaryButton: .default(Text("OK")),
-                     secondaryButton: .default(Text("Edit")) {
-                        isShowingEditSheet.toggle()
-                     })
+         if isUnlocked {
+            map
+            mapFocusPoint
+            addPinLocation
+         } else {
+            Button("Unlock Places") {
+               authenticate()
             }
-            .sheet(isPresented: $isShowingEditSheet,
-                   onDismiss: saveData) {
-               if selectedPlace != nil {
-                  EditView(placemark: selectedPlace!)
-               }
-            }
+            .padding()
+            .background(Color.blue)
+            .foregroundColor(.white)
+            .font(.title)
+            .clipShape(Capsule())
+         }
       }
       .onAppear(perform: loadData)
+      .alert(isPresented: $isShowingPlaceDetails) {
+         Alert(title: Text(selectedPlace?.title ?? "N/A"),
+               message: Text(selectedPlace?.subtitle ?? "Missing place information."),
+               primaryButton: .default(Text("OK")),
+               secondaryButton: .default(Text("Edit")) {
+                  isShowingEditSheet.toggle()
+               })
+      }
+      .sheet(isPresented: $isShowingEditSheet,
+             onDismiss: saveData) {
+         if selectedPlace != nil {
+            EditView(placemark: selectedPlace!)
+         }
+      }
    }
    
    
@@ -87,7 +101,6 @@ struct ContentView: View {
             .padding()
             .background(Color.black.opacity(0.75))
             .foregroundColor(.white)
-            .font(.title)
             .clipShape(Circle())
             .padding(.trailing)
          }
@@ -146,6 +159,43 @@ struct ContentView: View {
          print("Unable to save data.")
       }
    }
+   
+   
+   func authenticate() {
+      
+      /// `1` Creating an `LAContext` so we have something that can check and perform biometric authentication :
+      let context = LAContext()
+      var error: NSError?
+      
+      /// `2` Ask it whether the current device is capable of biometric authentication :
+      if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics,
+                                   error: &error) {
+         let reason = "Please authenticate yourself to unlock your places."
+         
+         /// `3`If it is , start the request and provide a closure to run when it completes :
+         context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics,
+                                localizedReason: reason) { success, authenticationError in
+            
+            /// `4`When the request finishes ,
+            /// push our work back to the main thread
+            /// and check the result :
+            DispatchQueue.main.async {
+               if success {
+                  /// `5`If it was successful ,
+                  ///  we’ll set isUnlocked to true
+                  ///  so we can run our app as normal :.
+                  self.isUnlocked = true
+               } else {
+                  // error
+               }
+            }
+         }
+      } else {
+         // no biometrics
+      }
+   }
+   /// Remember , the string in our code is used for Touch ID ,
+   /// whereas the string in Info.plist is used for Face ID .
 }
 
 
