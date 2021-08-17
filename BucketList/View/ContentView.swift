@@ -39,9 +39,9 @@ struct ContentView: View {
                authenticate()
             }
             .padding()
+            .padding(.horizontal)
             .background(Color.blue)
             .foregroundColor(.white)
-            .font(.title)
             .clipShape(Capsule())
          }
       }
@@ -97,12 +97,12 @@ struct ContentView: View {
                isShowingEditSheet.toggle()
             }, label: {
                Image(systemName: "plus")
+                  .padding()
+                  .background(Color.black.opacity(0.75))
+                  .foregroundColor(.white)
+                  .clipShape(Circle())
+                  .padding(.trailing)
             })
-            .padding()
-            .background(Color.black.opacity(0.75))
-            .foregroundColor(.white)
-            .clipShape(Circle())
-            .padding(.trailing)
          }
          Spacer()
       }
