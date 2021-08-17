@@ -22,6 +22,8 @@ struct ContentView: View {
    @State private var isShowingPlaceDetails: Bool = false
    @State private var isShowingEditSheet: Bool = false
    @State private var isUnlocked: Bool = false
+   @State private var isShowingAuthenticateFailureAlert: Bool = false
+   @State private var authenticateFailureAlertMessage: String = ""
    
    
    
@@ -32,21 +34,26 @@ struct ContentView: View {
       ZStack {
          if isUnlocked {
             mapView
+               .alert(isPresented: $isShowingPlaceDetails) {
+                  Alert(title: Text(selectedPlace?.title ?? "N/A"),
+                        message: Text(selectedPlace?.subtitle ?? "Missing place information."),
+                        primaryButton: .default(Text("OK")),
+                        secondaryButton: .default(Text("Edit")) {
+                           isShowingEditSheet.toggle()
+                        })
+               }
             mapFocusPoint
             addPinButton
          } else {
             authenticateButton
+               .alert(isPresented: $isShowingAuthenticateFailureAlert) {
+                  Alert(title: Text("Failed Authentication"),
+                        message: Text(authenticateFailureAlertMessage),
+                        dismissButton: .default(Text("OK")))
+               }
          }
       }
       .onAppear(perform: loadData)
-      .alert(isPresented: $isShowingPlaceDetails) {
-         Alert(title: Text(selectedPlace?.title ?? "N/A"),
-               message: Text(selectedPlace?.subtitle ?? "Missing place information."),
-               primaryButton: .default(Text("OK")),
-               secondaryButton: .default(Text("Edit")) {
-                  isShowingEditSheet.toggle()
-               })
-      }
       .sheet(isPresented: $isShowingEditSheet,
              onDismiss: saveData) {
          if selectedPlace != nil {
@@ -193,6 +200,10 @@ struct ContentView: View {
                   self.isUnlocked = true
                } else {
                   // error
+                  print("Trigger alert.")
+                  self.isShowingAuthenticateFailureAlert = true
+                  authenticateFailureAlertMessage = "\(authenticationError?.localizedDescription ?? "Unknown Error")"
+                  
                }
             }
          }
