@@ -31,18 +31,11 @@ struct ContentView: View {
       
       ZStack {
          if isUnlocked {
-            map
+            mapView
             mapFocusPoint
-            addPinLocation
+            addPinButton
          } else {
-            Button("Unlock Places") {
-               authenticate()
-            }
-            .padding()
-            .padding(.horizontal)
-            .background(Color.blue)
-            .foregroundColor(.white)
-            .clipShape(Capsule())
+            authenticateButton
          }
       }
       .onAppear(perform: loadData)
@@ -63,7 +56,7 @@ struct ContentView: View {
    }
    
    
-   var map: some View {
+   var mapView: some View {
       
       return MapView(centerCoordinate: $centerCoordinate,
                      selectedPlace: $selectedPlace,
@@ -82,7 +75,7 @@ struct ContentView: View {
    }
    
    
-   var addPinLocation: some View {
+   var addPinButton: some View {
       
       return VStack {
          HStack {
@@ -106,6 +99,19 @@ struct ContentView: View {
          }
          Spacer()
       }
+   }
+   
+   
+   var authenticateButton: some View {
+      
+      return Button("Unlock Places") {
+         authenticate()
+      }
+      .padding()
+      .padding(.horizontal)
+      .background(Color.blue)
+      .foregroundColor(.white)
+      .clipShape(Capsule())
    }
    
    
